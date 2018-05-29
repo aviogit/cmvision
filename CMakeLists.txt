@@ -1,6 +1,31 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(cmvision)
 
+if(NOT WIN32)
+  string(ASCII 27 Esc)
+  set(Reset       "${Esc}[m")
+  set(Bold        "${Esc}[1m")
+  set(Red         "${Esc}[31m")
+  set(Green       "${Esc}[32m")
+  set(Yellow      "${Esc}[33m")
+  set(Blue        "${Esc}[34m")
+  set(Magenta     "${Esc}[35m")
+  set(Cyan        "${Esc}[36m")
+  set(White       "${Esc}[37m")
+  set(BoldRed     "${Esc}[1;31m")
+  set(BoldGreen   "${Esc}[1;32m")
+  set(BoldYellow  "${Esc}[1;33m")
+  set(BoldBlue    "${Esc}[1;34m")
+  set(BoldMagenta "${Esc}[1;35m")
+  set(BoldCyan    "${Esc}[1;36m")
+  set(BoldWhite   "${Esc}[1;37m")
+endif()
+
+MESSAGE("")
+MESSAGE("-= ${BoldYellow}CMAKE ${PROJECT_NAME} BEGIN${Reset} =-")
+MESSAGE("")
+
+
 find_package(catkin REQUIRED 
   COMPONENTS 
   cv_bridge
@@ -25,6 +50,33 @@ generate_messages(
 catkin_package(CATKIN_DEPENDS message_runtime std_msgs)
 
 include_directories(${catkin_INCLUDE_DIRS})
+
+message("Finding wxWidgets libraries, if not found, please do: ${BoldBlue}sudo apt install libwxgtk3.0-dev${Reset}")
+message("")
+message("If you see this other error (https://github.com/Kitware/CMake/pull/320):")
+message("")
+message("${BoldRed}CMake Error at /usr/share/cmake-3.5/Modules/FindwxWidgets.cmake:861 (file):")
+message("  file failed to open for reading (No such file or directory):${Reset}")
+message("")
+message("${BoldYellow}Please apply the provided patch in the following way (remove the --dry-run to actually perform the changes when sure):${Reset}")
+message("")
+message("")
+message("${BoldGreen}#> sudo patch -d/usr/share/cmake-3.5/Modules -p0 --verbose --dry-run < cmake-findwx-widgets-patch/patch-usr-share-cmake-3.5-Modules-FindwxWidgets-cmake-file-failed-to-open-for-reading-No-such-file-or-directory-20180529-151452.txt${Reset}")
+message("Hmm...  Looks like a unified diff to me...")
+message("The text leading up to this was:")
+message("--------------------------")
+message("|--- FindwxWidgets.cmake	2016-03-24 15:12:21.000000000 +0100")
+message("|+++ /usr/share/cmake-3.5/Modules/FindwxWidgets.cmake	2018-04-04 16:17:30.651275499 +0200")
+message("--------------------------")
+message("File FindwxWidgets.cmake is read-only; trying to patch anyway")
+message("checking file FindwxWidgets.cmake")
+message("Using Plan A...")
+message("Hunk #1 succeeded at 851.")
+message("done")
+message("")
+message("")
+
+
 
 find_package(wxWidgets REQUIRED)
 include(${wxWidgets_USE_FILE})
@@ -71,4 +123,7 @@ install(TARGETS cmvision colorgui
 install(FILES cmvision.launch colors.txt
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
+
+MESSAGE("-= ${BoldYellow}CMAKE ${PROJECT_NAME} END${Reset} =-")
+MESSAGE("")
 

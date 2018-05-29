@@ -1,0 +1,10 @@
+--- FindwxWidgets.cmake	2016-03-24 15:12:21.000000000 +0100
++++ /usr/share/cmake-3.5/Modules/FindwxWidgets.cmake	2018-04-04 16:17:30.651275499 +0200
+@@ -851,6 +851,7 @@
+ 
+ # Check if a specfic version was requested by find_package().
+ if(wxWidgets_FOUND)
++  unset(_filename)
+   find_file(_filename wx/version.h PATHS ${wxWidgets_INCLUDE_DIRS} NO_DEFAULT_PATH)
+   dbg_msg("_filename:  ${_filename}")
+ 

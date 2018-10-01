@@ -1,0 +1,5 @@
+[Colors]
+(114, 58, 92) 0.000000 10 Purple-baby-ball
+
+[Thresholds]
+( 78:211, 124:136, 138:160 )

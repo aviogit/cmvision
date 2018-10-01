@@ -1,0 +1,5 @@
+[Colors]
+(215, 78, 31) 0.000000 10 orange-drone-pilot-jacket
+
+[Thresholds]
+( 76:113, 81:94, 191:200 )
